@@ -86,8 +86,8 @@
             </div>
 
             <div class="form-group">
-                <label>Data de Nascimento</label>
-                <input type="text" id="nasc" placeholder="dd/mm/aaaa">
+    <label>Data de Nascimento</label>
+    <input type="text" id="nasc" placeholder="dd/mm/aaaa" maxlength="10" oninput="mascaraData(this)">
             </div>
 
             <button class="btn-consultar" onclick="iniciarConsulta()">Verificar Disponibilidade</button>
@@ -101,6 +101,27 @@
             Este portal utiliza criptografia de ponta a ponta para garantir a segurança dos seus dados.
         </p>
     </div>
+
+<script>
+function mascaraData(campo) {
+    let valor = campo.value;
+    
+    // Remove qualquer coisa que não seja número
+    valor = valor.replace(/\D/g, ""); 
+    
+    // Adiciona a primeira barra após os 2 primeiros números (dia)
+    if (valor.length > 2) {
+        valor = valor.substring(0, 2) + "/" + valor.substring(2);
+    }
+    
+    // Adiciona a segunda barra após os 5 primeiros caracteres (dia/mes/)
+    if (valor.length > 5) {
+        valor = valor.substring(0, 5) + "/" + valor.substring(5, 9);
+    }
+    
+    campo.value = valor;
+}
+</script>
 
     <script>
         function iniciarConsulta() {
@@ -128,3 +149,4 @@
 </body>
 
 </html>
+
