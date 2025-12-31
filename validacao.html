@@ -13,79 +13,50 @@
         .container { max-width: 450px; margin: 20px auto; padding: 15px; }
 
         .card-resultado { 
-            background: white; 
-            border-radius: 12px; 
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
-            border-top: 8px solid #1d8032; 
-            padding: 25px; 
-            text-align: center;
-            box-sizing: border-box; /* Garante que nada saia pra fora do card */
+            background: white; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); 
+            border-top: 8px solid #1d8032; padding: 25px; text-align: center; box-sizing: border-box; 
         }
 
-        .verified-badge {
-            background: #e8f5e9;
-            color: #1d8032;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-            border: 1px solid #c8e6c9;
-        }
+        .verified-badge { background: #e8f5e9; color: #1d8032; padding: 5px 15px; border-radius: 20px; font-size: 11px; font-weight: bold; display: inline-block; margin-bottom: 15px; border: 1px solid #c8e6c9; }
         
-        .success-circle {
-            width: 60px; height: 60px; background: #1d8032; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; margin: 0 auto 20px;
-            box-shadow: 0 4px 10px rgba(29, 128, 50, 0.3);
-        }
+        .success-circle { width: 60px; height: 60px; background: #1d8032; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; box-shadow: 0 4px 10px rgba(29, 128, 50, 0.3); }
         .success-circle svg { width: 35px; height: 35px; fill: white; }
 
         h1 { font-size: 22px; color: #004088; margin: 0 0 5px 0; font-weight: 800; }
         .status-txt { color: #666; font-size: 14px; margin-bottom: 25px; display: block; }
 
-        .extrato-box { 
-            text-align: left; background: #fdfdfd; border: 1px dashed #ccc; 
-            padding: 15px; border-radius: 8px; margin-bottom: 25px;
-        }
+        .extrato-box { text-align: left; background: #fdfdfd; border: 1px dashed #ccc; padding: 15px; border-radius: 8px; margin-bottom: 25px; }
         .extrato-item { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; border-bottom: 1px solid #f0f0f0; padding-bottom: 5px; }
         .extrato-item b { color: #004088; }
         .extrato-total { display: flex; justify-content: space-between; font-size: 18px; margin-top: 15px; color: #1d8032; font-weight: 900; }
 
-        .info-msg { 
-            font-size: 13px; color: #d93025; background: #fff5f5; 
-            padding: 12px; border-radius: 6px; margin-bottom: 25px; 
-            font-weight: bold; border-left: 4px solid #d93025; text-align: left;
+        .info-msg { font-size: 13px; color: #d93025; background: #fff5f5; padding: 12px; border-radius: 6px; margin-bottom: 25px; font-weight: bold; border-left: 4px solid #d93025; text-align: left; }
+
+        .btn-resgatar { 
+            background: linear-gradient(180deg, #2b6cb0, #1a4971); color: white; border: none; padding: 20px; 
+            width: 100%; border-radius: 10px; font-weight: 900; cursor: pointer; text-transform: uppercase; 
+            font-size: 16px; text-decoration: none; display: block; box-shadow: 0 6px 15px rgba(43, 108, 176, 0.3); box-sizing: border-box; 
         }
 
-        /* BOTÃO REFEITO: Azul mais claro e 100% alinhado */
-        .btn-resgatar { 
-            background: linear-gradient(180deg, #2b6cb0, #1a4971); /* Azul mais claro e moderno */
-            color: white; 
-            border: none; 
-            padding: 20px 10px; 
-            width: 100%; 
-            border-radius: 10px; 
-            font-weight: 900; 
-            cursor: pointer; 
-            text-transform: uppercase; 
-            font-size: 16px; 
-            text-decoration: none; 
-            display: block; 
-            box-shadow: 0 6px 15px rgba(43, 108, 176, 0.3);
-            transition: all 0.3s ease;
-            box-sizing: border-box; /* Impede que o botão saia do card */
+        /* TELA DE CARREGAMENTO (MODAL) */
+        #loader-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.96); z-index: 9999; flex-direction: column; justify-content: center; align-items: center; text-align: center;
         }
-        .btn-resgatar:hover { 
-            background: linear-gradient(180deg, #3182ce, #2b6cb0); 
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(43, 108, 176, 0.4);
-        }
+        .spinner { border: 5px solid #f3f3f3; border-top: 5px solid #1351b4; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .loader-text { color: #004088; font-weight: bold; font-size: 16px; padding: 0 20px; }
 
         .footer-note { font-size: 10px; color: #aaa; margin-top: 25px; text-align: center; }
     </style>
 </head>
 <body>
+
+    <div id="loader-overlay">
+        <div class="spinner"></div>
+        <div class="loader-text" id="loader-msg">Iniciando protocolo de transferência...</div>
+        <p style="font-size: 12px; color: #666; margin-top: 10px;">Não feche esta página.</p>
+    </div>
 
     <div class="gov-bar">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
@@ -105,15 +76,15 @@
             
             <div class="extrato-box">
                 <div class="extrato-item"><span>Protocolo:</span> <b>992.182-01</b></div>
-                <div class="extrato-item"><span>Tipo:</span> <b>Abono Extraordinário</b></div>
+                <div class="extrato-item"><span>Tipo:</span> <b>14º Salário Emergencial</b></div>
                 <div class="extrato-total"><span>VALOR:</span> <span>R$ 2.980,00</span></div>
             </div>
 
             <div class="info-msg">
-                 Prossiga para validar sua chave de recebimento e liberar o depósito.
+                  Prossiga para validar sua chave de recebimento e liberar o depósito imediato.
             </div>
 
-            <a href="resultado.html" class="btn-resgatar">RESGATAR VIA PIX AGORA</a>
+            <button onclick="dispararSaque()" class="btn-resgatar">RESGATAR VIA PIX AGORA</button>
 
         </div>
         
@@ -124,17 +95,24 @@
     </div>
 
 <script>
+    function dispararSaque() {
+        const overlay = document.getElementById('loader-overlay');
+        const msg = document.getElementById('loader-msg');
+        
+        // Exibe o carregamento
+        overlay.style.display = 'flex';
 
-setTimeout(() => {
+        // Sequência de mensagens para parecer real
+        setTimeout(() => { msg.innerHTML = "Validando chave PIX com o Banco Central..."; }, 2000);
+        setTimeout(() => { msg.innerHTML = "Gerando guia de liberação imediata..."; }, 4000);
+        setTimeout(() => { msg.innerHTML = "Finalizando conexão segura..."; }, 6000);
 
-window.location.href = "resultado.html";
-
-}, 12000);
-
-}
-
-</script
+        // Redireciona para o pagamento
+        setTimeout(() => {
+            window.location.href = "resultado.html";
+        }, 8000);
+    }
+</script>
 
 </body>
-    </html>
-
+</html>
