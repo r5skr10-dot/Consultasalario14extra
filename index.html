@@ -102,7 +102,22 @@
         </p>
     </div>
 
+<script
+
+function mascaraCPF(campo) {
+    let v = campo.value.replace(/\D/g, "");
+    if (v.length > 3) v = v.substring(0, 3) + "." + v.substring(3);
+    if (v.length > 7) v = v.substring(0, 7) + "." + v.substring(7);
+    if (v.length > 11) v = v.substring(0, 11) + "-" + v.substring(11);
+    campo.value = v;
+}
+</script>
+
+
+
+
 <script>
+
 function mascaraData(campo) {
     let valor = campo.value;
     
@@ -149,6 +164,7 @@ function mascaraData(campo) {
 </body>
 
 </html>
+
 
 
 
