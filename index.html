@@ -94,10 +94,11 @@
             const loader = document.getElementById('loader-container');
             const txt = document.getElementById('status-text');
             loader.style.display = 'flex';
-            setTimeout(() => { txt.innerHTML = "LOCALIZANDO CADASTRO..."; }, 2000);
-            setTimeout(() => { txt.innerHTML = "VERIFICANDO LOTE DISPONÍVEL..."; }, 5000);
+            setTimeout(() => { txt.innerHTML = ""; }, 2000);
+            setTimeout(() => { txt.innerHTML = ""; }, 5000);
             setTimeout(() => { window.location.href = "parte2.html"; }, 8000);
         }
     </script>
 </body>
 </html>
+
